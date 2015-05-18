@@ -31,11 +31,12 @@ public class Level {
 	}
 	
 	public Tile getTile(int x, int y) {
-		if(x < 0 || x > getWidth()-1 || y < 0 || y > getHeight()-1) {
-			return new Tile(TileType.VOID);
-		} else {
-			return this.tiles[x][y];
+		try {
+		    return this.tiles[x][y];
+		}catch(IndexOutOfBoundsException e){
+		    return new Tile(TileType.VOID);
 		}
+
 	}
 	
 }
