@@ -8,7 +8,7 @@ public class MazeGenerator implements Consumer<Level> {
 
 	@Override
 	public void accept(Level level) {
-		// TODO Auto-generated method stub		
+		
 	}
 
 }

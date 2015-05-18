@@ -18,6 +18,7 @@ public class Level {
 	}
 	
 	public Level apply(Consumer<Level> generator){
+		generator.accept(this);
 		return this;
 	}
 	
@@ -27,6 +28,14 @@ public class Level {
 	
 	public int getHeight() {
 		return this.height;
+	}
+	
+	public Tile getTile(int x, int y) {
+		if(x < 0 || x > getWidth()-1 || y < 0 || y > getHeight()-1) {
+			return new Tile(TileType.VOID);
+		} else {
+			return this.tiles[x][y];
+		}
 	}
 	
 }
