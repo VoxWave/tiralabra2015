@@ -2,6 +2,9 @@ package com.unknownpotato.dungeon;
 
 import java.util.function.Consumer;
 
+import com.unknownpotato.dungeon.Tile.TileType;
+import com.unknownpotato.dungeon.util.Vec2;
+
 public class Level {
 	
 	private Tile[][] tiles;
@@ -10,8 +13,10 @@ public class Level {
 	
 	public Level(int width, int height) {
 		this.tiles = new Tile[width][height];
-		for(int x = 0; x<width; x++) {
-			for(int y = 0; x<height; y++) {
+		this.width = width;
+		this.height = height;
+		for(int y = 0; y<height; y++) {
+			for(int x = 0; x<width; x++) {
 				this.tiles[x][y] = new Tile(TileType.WALL);
 			}
 		}
@@ -39,4 +44,21 @@ public class Level {
 
 	}
 	
+	public Tile getTile(Vec2 vec) {
+		return getTile(vec.getX(), vec.getY());
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		for(int y = 0; y<height; y++) {
+			for(int x = 0; x<width; x++) {
+				builder.append(this.tiles[x][y]);
+			}
+			builder.append("\n");
+		}
+		return builder.toString();
+	}
+	
 }
+
