@@ -25,7 +25,8 @@ public class MazeGenerator implements Consumer<Level> {
 	public void accept(Level level) {
 		Stack<Vec2> stack = new Stack<>();
 		stack.push(new Vec2(x,y));
-		
+		long seed = rand.nextLong();
+		int n = 0;
 		dfs:while(!stack.isEmpty()){
 			Vec2 cur = stack.pop();
 			Tile tile = level.getTile(cur);
@@ -42,7 +43,10 @@ public class MazeGenerator implements Consumer<Level> {
 				neighbours.push(vec);
 			}
 			
-			neighbours.scramble(rand);
+			if(n%1 == 0) seed = rand.nextLong();
+			n++;
+			Random r = new Random(seed);
+			neighbours.scramble(r);
 			while(!neighbours.isEmpty()){
 				stack.push(neighbours.pop());
 			}
