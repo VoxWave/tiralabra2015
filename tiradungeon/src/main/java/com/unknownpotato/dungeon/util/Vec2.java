@@ -13,6 +13,10 @@ public class Vec2 {
 	public Vec2(Vec2 vec) {
 		this(vec.x, vec.y);
 	}
+	
+	public Vec2() {
+		this(0,0);
+	}
 
 	public int getX() {
 		return x;
