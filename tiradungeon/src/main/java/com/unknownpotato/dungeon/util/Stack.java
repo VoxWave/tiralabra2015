@@ -48,7 +48,7 @@ public class Stack<T> {
 		}
 	}
 	
-	private void grow(){
+	protected void grow(){
 		T[] n = (T[])new Object[data.length*2];
 		for(int i = 0; i<data.length; i++) {
 			n[i] = data[i];
