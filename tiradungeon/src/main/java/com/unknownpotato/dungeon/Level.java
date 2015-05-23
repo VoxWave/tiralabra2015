@@ -5,12 +5,26 @@ import java.util.function.Consumer;
 import com.unknownpotato.dungeon.Tile.TileType;
 import com.unknownpotato.dungeon.util.Vec2;
 
+/**
+ * 
+ * Level is a 2 dimensional grid filled with tiles used to represent a roguelike level.
+ * 
+ * @author VoxWave
+ *
+ */
+
 public class Level {
 	
 	private Tile[][] tiles;
 	private int width;
 	private int height;
 	
+	/**
+	 * Creates a level and fills it with walls.
+	 * 
+	 * @param width The width of the level.
+	 * @param height The height of the level.
+	 */
 	public Level(int width, int height) {
 		this.tiles = new Tile[width][height];
 		this.width = width;
@@ -22,6 +36,15 @@ public class Level {
 		}
 	}
 	
+	/**
+	 * Applies a generator on the level and then returns the level itself.
+	 * <p>
+	 * Generators are Consumers that modify level in some way such as carving a maze.
+	 * The method returns the level to allow chaining of this method.
+	 * 
+	 * @param generator
+	 * @return
+	 */
 	public Level apply(Consumer<Level> generator){
 		generator.accept(this);
 		return this;
@@ -35,6 +58,15 @@ public class Level {
 		return this.height;
 	}
 	
+	/**
+	 * returns a tile from the level
+	 * <p>
+	 * This method returns a void tile if the given coordinates are out of bounds.
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public Tile getTile(int x, int y) {
 		try {
 		    return this.tiles[x][y];

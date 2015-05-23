@@ -11,6 +11,7 @@ import com.unknownpotato.dungeon.util.Vec2;
 import com.unknownpotato.dungeon.util.enums.Direction;
 
 public class MazeGenerator implements Consumer<Level> {
+	
 	private Random rand;
 	private int x;
 	private int y;
@@ -27,21 +28,15 @@ public class MazeGenerator implements Consumer<Level> {
 		stack.push(new Vec2(x,y));
 		long seed = rand.nextLong();
 		int n = 0;
-		dfs:while(!stack.isEmpty()){
+		while(!stack.isEmpty()){
 			Vec2 cur = stack.pop();
 			Tile tile = level.getTile(cur);
 			if(tile.getType() == TileType.VOID || tile.getType() == TileType.FLOOR){
 				continue;
 			}
-			Stack<Vec2> neighbours = new Stack<>();
-			int floors = 0;
-			for(Direction d: Direction.values()){
-				Vec2 vec = new Vec2(d.getVec());
-				vec.add(cur);
-				if(level.getTile(vec).getType() == TileType.FLOOR) floors++;
-				if(floors > 1) continue dfs;
-				neighbours.push(vec);
-			}
+			
+			Stack<Vec2> neighbours = getNeighbours(level, cur);
+			if(neighbours == null) continue;
 			
 			if(n%1 == 0) seed = rand.nextLong();
 			n++;
@@ -52,6 +47,19 @@ public class MazeGenerator implements Consumer<Level> {
 			}
 			level.getTile(cur).setType(TileType.FLOOR);
 		}
+	}
+	
+	protected Stack<Vec2> getNeighbours(Level level, Vec2 cur) {
+		Stack<Vec2> neighbours = new Stack<>();
+		int floors = 0;
+		for(Direction d: Direction.values()){
+			Vec2 vec = new Vec2(d.getVec());
+			vec.add(cur);
+			if(level.getTile(vec).getType() == TileType.FLOOR) floors++;
+			if(floors > 1) return null;
+			neighbours.push(vec);
+		}
+		return neighbours;
 	}
 
 }
