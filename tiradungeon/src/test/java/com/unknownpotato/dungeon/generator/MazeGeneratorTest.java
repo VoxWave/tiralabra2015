@@ -2,13 +2,19 @@ package com.unknownpotato.dungeon.generator;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import com.unknownpotato.dungeon.Level;
 import com.unknownpotato.dungeon.Tile.TileType;
+import com.unknownpotato.dungeon.util.Pair;
+import com.unknownpotato.dungeon.util.Queue;
 import com.unknownpotato.dungeon.util.Stack;
 import com.unknownpotato.dungeon.util.Vec2;
+import com.unknownpotato.dungeon.util.enums.Direction;
 
 public class MazeGeneratorTest {
 	private Level level;
@@ -33,6 +39,7 @@ public class MazeGeneratorTest {
 	public void generatorGeneratesAPerfectMaze(){
 		MazeGenerator gen = new MazeGenerator(0,0);
 		level.apply(gen);
-		Stack<Vec2> visited;
+		Set<Vec2> visited = new HashSet<Vec2>(); //muista toteuttaa setti jossain vaiheessa
+		Queue<Pair<Direction,Vec2>> toBeVisited = new Queue<Pair<Direction, Vec2>>(); 
 	}
 }
