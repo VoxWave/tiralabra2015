@@ -6,7 +6,7 @@ import java.awt.Color;
  * 
  * Tiles form the level. 
  * They are used to represent the contents of the level such as walls and floors.
- * Tiles also contain (through tiletypes) Colors and char representation to ease visualisation.
+ * Tiles also contain (through TileTypes) Colors and char representation to ease visualization.
  * 
  * @author VoxWave
  *
@@ -16,7 +16,7 @@ public class Tile {
 	
 	/**
 	 * 
-	 * TileType is the type of a tile. It is used in Generator logic and visualisation.
+	 * TileType is the type of a tile. It is used in Generator logic and visualization.
 	 * 
 	 * @author VoxWave
 	 *
@@ -43,6 +43,9 @@ public class Tile {
 		}
 	}
 	
+	/**
+	 * type determines the type of the tile.
+	 */
 	private TileType type;
 	
 	/**

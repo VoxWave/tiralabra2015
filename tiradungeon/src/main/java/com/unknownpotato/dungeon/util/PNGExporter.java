@@ -3,13 +3,23 @@ package com.unknownpotato.dungeon.util;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-
 import com.unknownpotato.dungeon.Level;
 
+/**
+ * 
+ * @author VoxWave
+ *
+ */
 public class PNGExporter {
 	
+	/**
+	 * creates a png image of the level
+	 * <p>
+	 * In the png each pixel represents a tile with different colors representing different tiletypes.
+	 * @param level
+	 * @param filename
+	 */
 	public void export(Level level, String filename) {
 		int[] ints = new int[level.getWidth()*level.getHeight()];
 		for(int y = 0; y<level.getHeight(); y++) {

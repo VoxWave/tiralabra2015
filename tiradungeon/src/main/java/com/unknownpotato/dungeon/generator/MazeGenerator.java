@@ -10,18 +10,43 @@ import com.unknownpotato.dungeon.util.Stack;
 import com.unknownpotato.dungeon.util.Vec2;
 import com.unknownpotato.dungeon.util.enums.Direction;
 
+/**
+ * 
+ * MazeGenerator is a Consumer that takes in a Level and carves a perfect maze to it.
+ * 
+ * @author VoxWave
+ *
+ */
 public class MazeGenerator implements Consumer<Level> {
 	
+	/**
+	 * the random generator that the generator uses.
+	 */
 	private Random rand;
+	/**
+	 * The x coordinate of the level that the generator starts carving from.
+	 */
 	private int x;
+	/**
+	 * The y coordinate of the level that the generator starts carving from.
+	 */
 	private int y;
 	
+	/**
+	 * Creates a maze generator that starts its carving from the specified coordinates.
+	 * @param x
+	 * @param y
+	 */
 	public MazeGenerator(int x, int y) {
 		this.rand = new Random();
 		this.x = x;
 		this.y = y;
 	}
 
+	/**
+	 * Carves a perfect maze.
+	 * @param level
+	 */
 	@Override
 	public void accept(Level level) {
 		Stack<Vec2> stack = new Stack<>();
@@ -49,6 +74,16 @@ public class MazeGenerator implements Consumer<Level> {
 		}
 	}
 	
+	/**
+	 * Returns all of the neighbours of the tile in coordinates of the Vec2
+	 * <p>
+	 * This method returns null if more than one neighbour is a floor tile
+	 * because more than one floor neighbours mean that removing this tile would open a loop in the maze.
+	 * 
+	 * @param level
+	 * @param cur
+	 * @return the coordinates of the neighbours in a stack.
+	 */
 	protected Stack<Vec2> getNeighbours(Level level, Vec2 cur) {
 		Stack<Vec2> neighbours = new Stack<>();
 		int floors = 0;
