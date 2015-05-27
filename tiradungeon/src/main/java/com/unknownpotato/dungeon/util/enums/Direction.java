@@ -15,7 +15,7 @@ public enum Direction {
 		return vec;
 	}
 	
-	public Vec2 getOpposite() {
+	public Vec2 getOppositeVec() {
 		return new Vec2(-vec.getX(), -vec.getY());
 	}
 }

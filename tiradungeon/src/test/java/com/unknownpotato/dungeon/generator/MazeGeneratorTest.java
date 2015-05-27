@@ -55,11 +55,16 @@ public class MazeGeneratorTest {
 	}
 
 	private Queue<Pair<Direction, Vec2>> getNeighbours(Pair<Direction, Vec2> cur) {
+		Queue<Pair<Direction, Vec2>> neighbours = new Queue<>();
+		
 		for(Direction d: Direction.values()) {
-			if(d == Direction.NONE) {
+			if(d == Direction.NONE || d.getVec().equals(cur.getRight().getOppositeVec())) {
 				continue;
 			}
+			Vec2 vec = new Vec2(cur.getLeft());
+			vec.add(d.getVec());
 			
+			neighbours.enqueue(new Pair<Direction, Vec2>(d, vec));
 		}
 		
 		return null;
