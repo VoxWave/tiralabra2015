@@ -7,14 +7,14 @@ public class Stack<T> {
 	private T[] data;
 	private int top;
 	
-	public Stack(){
+	public Stack() {
 		data = (T[])new Object[8];
 		top = 0;
 	}
 	
 	public Stack(T[] t){
 		data = t;
-		top = data.length;
+		top = data.length;		
 	}
 	
 	public boolean isEmpty() {

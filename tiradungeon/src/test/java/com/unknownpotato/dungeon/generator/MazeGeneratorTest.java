@@ -34,7 +34,10 @@ public class MazeGeneratorTest {
 			}
 		}
 	}
-	
+
+	/**
+	 * This test generates a maze starting from 0,0
+	 */
 	@Test
 	public void generatorGeneratesAPerfectMaze(){
 		MazeGenerator gen = new MazeGenerator(0,0);
@@ -48,9 +51,13 @@ public class MazeGeneratorTest {
 		while(!toBeVisited.isEmpty()) {
 			Pair<Direction, Vec2> cur = toBeVisited.dequeue();
 			if(visited.contains(cur.getLeft())) {
-				fail("the current tile at: " + cur.getLeft().getX() + ", " + cur.getLeft());
+				fail("the current tile at: " + cur.getLeft().getX() + ", " + cur.getLeft() + " was already visited. There is a loop in the maze (or something else is wrong)");
 			}
 			Queue<Pair<Direction, Vec2>> neighbours = getNeighbours(cur);
+			visited.add(cur.getLeft());
+			while(!neighbours.isEmpty()) {
+				toBeVisited.enqueue(neighbours.dequeue());
+			}
 		}
 	}
 
@@ -63,10 +70,11 @@ public class MazeGeneratorTest {
 			}
 			Vec2 vec = new Vec2(cur.getLeft());
 			vec.add(d.getVec());
-			
-			neighbours.enqueue(new Pair<Direction, Vec2>(d, vec));
+			if(level.getTile(vec).getType() == TileType.FLOOR) {
+				neighbours.enqueue(new Pair<Direction, Vec2>(d, vec));
+			}
 		}
 		
-		return null;
+		return neighbours;
 	}
 }
