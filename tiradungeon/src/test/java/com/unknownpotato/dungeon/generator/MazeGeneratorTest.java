@@ -1,6 +1,6 @@
 package com.unknownpotato.dungeon.generator;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -39,7 +39,29 @@ public class MazeGeneratorTest {
 	public void generatorGeneratesAPerfectMaze(){
 		MazeGenerator gen = new MazeGenerator(0,0);
 		level.apply(gen);
+		
 		Set<Vec2> visited = new HashSet<Vec2>(); //muista toteuttaa setti jossain vaiheessa
-		Queue<Pair<Direction,Vec2>> toBeVisited = new Queue<Pair<Direction, Vec2>>(); 
+		
+		Queue<Pair<Direction, Vec2>> toBeVisited = new Queue<Pair<Direction, Vec2>>();
+		toBeVisited.enqueue( new Pair<Direction, Vec2>(Direction.NONE, new Vec2(0,0)));
+		
+		while(!toBeVisited.isEmpty()) {
+			Pair<Direction, Vec2> cur = toBeVisited.dequeue();
+			if(visited.contains(cur.getLeft())) {
+				fail("the current tile at: " + cur.getLeft().getX() + ", " + cur.getLeft());
+			}
+			Queue<Pair<Direction, Vec2>> neighbours = getNeighbours(cur);
+		}
+	}
+
+	private Queue<Pair<Direction, Vec2>> getNeighbours(Pair<Direction, Vec2> cur) {
+		for(Direction d: Direction.values()) {
+			if(d == Direction.NONE) {
+				continue;
+			}
+			
+		}
+		
+		return null;
 	}
 }
