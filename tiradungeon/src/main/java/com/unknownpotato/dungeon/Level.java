@@ -50,10 +50,18 @@ public class Level {
 		return this;
 	}
 	
+	/**
+	 * Returns the width of the level.
+	 * @return
+	 */
 	public int getWidth() {
 		return this.width;
 	}
 	
+	/**
+	 * Returns the height of the level.
+	 * @return
+	 */
 	public int getHeight() {
 		return this.height;
 	}
@@ -65,7 +73,7 @@ public class Level {
 	 * 
 	 * @param x
 	 * @param y
-	 * @return
+	 * @return Tile
 	 */
 	public Tile getTile(int x, int y) {
 		try {
@@ -76,6 +84,13 @@ public class Level {
 
 	}
 	
+	/**
+	 * returns a tile from the level
+	 * <p>
+	 * This method returns a void tile if the given coordinates are out of bounds.
+	 * @param vec
+	 * @return Tile
+	 */
 	public Tile getTile(Vec2 vec) {
 		return getTile(vec.getX(), vec.getY());
 	}
