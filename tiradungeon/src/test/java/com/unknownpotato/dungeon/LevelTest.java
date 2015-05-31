@@ -20,7 +20,7 @@ public class LevelTest {
 
 	
 	@Test
-	public void levelIsInitializedWithRockTest() {
+	public void levelIsInitializedWithWallTest() {
 		for(int y = 0; y < level.getHeight(); y++) {
 			for(int x = 0; x < level.getWidth(); x++) {
 				assertEquals("tile at "+x+","+y+" is not wall", TileType.WALL, level.getTile(x,y).getType());

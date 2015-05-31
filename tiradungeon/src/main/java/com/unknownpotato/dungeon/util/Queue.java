@@ -18,19 +18,19 @@ public class Queue<T> {
 	 * @param <T>
 	 */
 	class Node<T> {
-		private Node next;
-		private Node previous;
+		private Node<T> next;
+		private Node<T> previous;
 		private T value;
 		
 		public Node(T value) {
 			this.value = value;
 		}
 		
-		public Node getNext() {
+		public Node<T> getNext() {
 			return next;
 		}
 		
-		public Node getPrev() {
+		public Node<T> getPrev() {
 			return previous;
 		}
 		
@@ -38,11 +38,11 @@ public class Queue<T> {
 			return value;
 		}
 		
-		public void setNext(Node node) {
+		public void setNext(Node<T> node) {
 			next = node;
 		}
 		
-		public void setPrev(Node node) {
+		public void setPrev(Node<T> node) {
 			previous = node;
 		}
 		
@@ -51,25 +51,46 @@ public class Queue<T> {
 		}
 	}
 	
-	private Node first;
-	private Node last;
+	private Node<T> first;
+	private Node<T> last;
 	
 	public Queue() {
 		
 	}
 
 	public void enqueue(T t) {
-		// TODO Auto-generated method stub
+		if(this.first == null){
+			this.first = new Node<T>(t);
+			return;
+		}
+		Node<T> prevFirst = this.first;
+		this.first = new Node<T>(t);
 		
+		prevFirst.setPrev(this.first);
+		this.first.setNext(prevFirst);
+		
+		if(this.last == null) {
+			this.last = this.first.getNext();
+		}
 	}
 	
 	public T dequeue() {
-		return null;
+		if(this.last == null && this.first == null) {
+			return null;
+		} else if (this.last == null) {
+			T toBeReturned = this.first.getValue();
+			this.first = null;
+			return toBeReturned;
+		}
+		Node<T> toBeReturned = this.last;
+		this.last = this.last.getPrev();
+		this.last.setNext(null);
+		if(this.first == this.last) this.last = null;
+		return toBeReturned.getValue();
 	}
 
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.first == null && this.last == null;
 	}
 
 }

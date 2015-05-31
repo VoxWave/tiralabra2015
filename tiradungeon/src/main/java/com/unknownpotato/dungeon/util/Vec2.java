@@ -43,5 +43,14 @@ public class Vec2 {
 	public Vec2 add(Vec2 cur) {
 		return add(cur.x, cur.y);
 	}
+	
+	@Override
+	public int hashCode() {
+		return (""+x+y).hashCode();
+	}
+	
+	public boolean equals(Vec2 comp) {
+		return this.x == comp.x && this.y == comp.y;
+	}
 
 }
