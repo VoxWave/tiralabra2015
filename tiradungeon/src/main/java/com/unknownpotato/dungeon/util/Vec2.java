@@ -1,21 +1,21 @@
 package com.unknownpotato.dungeon.util;
 
 public class Vec2 {
-	
+
 	private int x;
 	private int y;
-	
-	public Vec2(int x,int y) {
+
+	public Vec2(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
-	
+
 	public Vec2(Vec2 vec) {
 		this(vec.x, vec.y);
 	}
-	
+
 	public Vec2() {
-		this(0,0);
+		this(0, 0);
 	}
 
 	public int getX() {
@@ -33,7 +33,7 @@ public class Vec2 {
 	public void setY(int y) {
 		this.y = y;
 	}
-	
+
 	public Vec2 add(int x, int y) {
 		this.x += x;
 		this.y += y;
@@ -43,12 +43,12 @@ public class Vec2 {
 	public Vec2 add(Vec2 cur) {
 		return add(cur.x, cur.y);
 	}
-	
+
 	@Override
 	public int hashCode() {
-		return (""+x+y).hashCode();
+		return (x + ", " + y).hashCode();
 	}
-	
+
 	public boolean equals(Vec2 comp) {
 		return this.x == comp.x && this.y == comp.y;
 	}

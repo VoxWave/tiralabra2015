@@ -72,7 +72,7 @@ public class MazeGeneratorTest {
 			}
 		}
 	}
-
+	
 	private Queue<Pair<Direction, Vec2>> getNeighbours(Pair<Direction, Vec2> cur) {
 		Queue<Pair<Direction, Vec2>> neighbours = new Queue<>();
 
