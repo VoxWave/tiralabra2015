@@ -36,4 +36,11 @@ public class LevelTest {
 		assertEquals("getWidth, getHeight does not return a void tile", TileType.VOID, level.getTile(level.getWidth(), level.getHeight()).getType());
 	}
 	
+	@Test
+	public void toStringTest() {
+		Level toStringLevel = new Level(5,5);
+		toStringLevel.getTile(0, 0).setType(TileType.FLOOR);
+		toStringLevel.getTile(2, 4).setType(TileType.VOID);
+		assertEquals(" ####\n#####\n#####\n#####\n##~##\n", toStringLevel.toString());
+	}
 }
