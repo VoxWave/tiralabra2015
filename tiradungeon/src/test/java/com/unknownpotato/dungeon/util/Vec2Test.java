@@ -25,7 +25,8 @@ public class Vec2Test {
 	public void copyingAVectorWorksTest() {
 		Vec2 vecCopy = new Vec2(this.vec);
 		assertNotSame("vec and vecCopy are the same",vec,vecCopy);
-		assertEquals(this.vec, vecCopy);
+		assertEquals(this.vec.getX(), vecCopy.getX());
+		assertEquals(this.vec.getY(), vecCopy.getY());
 		assertEquals(vec.hashCode(), vecCopy.hashCode());
 	}
 	
@@ -49,6 +50,13 @@ public class Vec2Test {
 		assertEquals(0, this.vec.getX());
 		assertEquals(1, this.vec.getY());
 		this.vec.add(this.origo);
+	}
+	
+	@Test
+	public void equalsWorksTest() {
+		Vec2 vec2 = new Vec2(0,1);
+		assertTrue(vec.equals(vec2));
+		assertTrue(vec2.equals(vec));
 	}
 	
 }

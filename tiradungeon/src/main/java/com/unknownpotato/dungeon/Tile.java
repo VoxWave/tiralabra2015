@@ -26,11 +26,27 @@ public class Tile {
 		FLOOR(Color.LIGHT_GRAY, ' '), 
 		VOID(Color.BLACK, '~');
 		
+		/**
+		 * the Color assigned to a TileType
+		 * <p>
+		 * color is used in the png exporter to color each pixel correctly.
+		 */
 		private final Color color;
+		
+		/**
+		 * Returns a color assigned to the TileType.
+		 * 
+		 * @return Color
+		 */
 		public Color getColor() {
 			return color;
 		}
-
+		
+		/**
+		 * Returns a char assigned to the TileType.
+		 * 
+		 * @return
+		 */
 		public char getC() {
 			return c;
 		}
