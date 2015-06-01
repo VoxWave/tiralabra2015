@@ -8,11 +8,11 @@ import com.unknownpotato.dungeon.util.List;
 import com.unknownpotato.dungeon.util.Vec2;
 
 public class RoomGenerator implements Consumer<Level> {
-	class Room {
+	class Box {
 		private Vec2 a;
 		private Vec2 b;
 		
-		public Room(Vec2 a, Vec2 b){
+		public Box(Vec2 a, Vec2 b){
 			this.a = a;
 			this.b = b;
 		}
