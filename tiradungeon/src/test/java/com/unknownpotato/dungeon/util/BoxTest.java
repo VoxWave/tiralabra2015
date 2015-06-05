@@ -13,7 +13,7 @@ public class BoxTest {
 	}
 	
 	@Test
-	public void PartiallyOverlapingBoxesCollideTest() {
+	public void partiallyOverlapingBoxesCollideTest() {
 		Vec2 min1 = new Vec2(0,0);
 		Vec2 max1 = new Vec2(min1).add(5,5);
 		Box box1 = new Box(min1, max1);
@@ -27,7 +27,7 @@ public class BoxTest {
 	}
 	
 	@Test
-	public void CompletelyOverlapingBoxesCollideTest() {
+	public void completelyOverlapingBoxesCollideTest() {
 		Vec2 min = new Vec2(0,0);
 		Vec2 max = new Vec2(min).add(5,5);
 		Box box1 = new Box(min, max);
@@ -38,7 +38,7 @@ public class BoxTest {
 	}
 	
 	@Test
-	public void NonOverlapingBoxesDoNotCollideTest() {
+	public void nonOverlapingBoxesDoNotCollideTest() {
 		Vec2 min1 = new Vec2(0,0);
 		Vec2 max1 = new Vec2(min1).add(5,5);
 		Box box1 = new Box(min1, max1);
