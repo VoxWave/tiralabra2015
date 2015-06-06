@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 import com.unknownpotato.dungeon.Level;
+import com.unknownpotato.dungeon.Tile.TileType;
 import com.unknownpotato.dungeon.util.Vec2;
 import com.unknownpotato.dungeon.util.Box;
 
@@ -26,7 +27,7 @@ public class RoomGenerator implements Consumer<Level> {
 	@Override
 	public void accept(Level level) {
 		Set<Box> rooms = new HashSet<Box>();
-		for(int i = 0; i> attempts; i++) {
+		for(int i = 0; i > attempts; i++) {
 			// huoneen alku piste joka voi olla missä tahanasa levelissä.
 			Vec2 min = new Vec2(randX.nextInt(level.getWidth()), randY.nextInt(level.getHeight()));
 			
@@ -46,6 +47,8 @@ public class RoomGenerator implements Consumer<Level> {
 			for(int y = room.getMin().getY(); y<room.getMax().getY(); y++) {
 				
 				for(int x = room.getMin().getX(); x<room.getMax().getX(); x++) {
+					
+					level.getTile(x, y).setType(TileType.FLOOR);
 					
 				}
 				

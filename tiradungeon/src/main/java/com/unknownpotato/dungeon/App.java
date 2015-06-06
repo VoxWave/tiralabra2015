@@ -1,6 +1,7 @@
 package com.unknownpotato.dungeon;
 
 import com.unknownpotato.dungeon.generator.MazeGenerator;
+import com.unknownpotato.dungeon.generator.RoomGenerator;
 import com.unknownpotato.dungeon.util.PNGExporter;
 
 public class App 
@@ -11,6 +12,11 @@ public class App
     	System.out.println("moi");
         System.out.println(level.apply(gen).toString());
         PNGExporter exporter = new PNGExporter();
-        exporter.export(level, "penor");
+        exporter.export(level, "maze");
+        
+        level = new Level(64,64);
+        RoomGenerator gen2 = new RoomGenerator(20,100);
+        System.out.println(level.apply(gen2).toString());
+        exporter.export(level, "rooms");
     }
 }
