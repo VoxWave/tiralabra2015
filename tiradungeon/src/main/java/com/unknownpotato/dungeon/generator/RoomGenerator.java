@@ -16,18 +16,20 @@ public class RoomGenerator implements Consumer<Level> {
 	private Random randY;
 	
 	private int maxRoomSize;
+	private int minRoomSize;
 	private int attempts;
 
-	public RoomGenerator(int maxRoomSize, int attempts) {
+	public RoomGenerator(int minRoomSize, int maxRoomSize, int attempts) {
 		this.randX = new Random();
 		this.randY = new Random();
 		this.maxRoomSize = maxRoomSize;
+		this.attempts = attempts;
 	}
 
 	@Override
 	public void accept(Level level) {
 		Set<Box> rooms = new HashSet<Box>();
-		for(int i = 0; i > attempts; i++) {
+		for(int i = 0; i < attempts; i++) {
 			// huoneen alku piste joka voi olla missä tahanasa levelissä.
 			Vec2 min = new Vec2(randX.nextInt(level.getWidth()), randY.nextInt(level.getHeight()));
 			
@@ -38,7 +40,10 @@ public class RoomGenerator implements Consumer<Level> {
 			
 			boolean fits = true;
 			for(Box box: rooms) {
-				if(room.overlaps(box)) fits = false;
+				if(room.overlaps(box)) {
+					fits = false;
+					break;
+				}
 			}
 			if(fits) rooms.add(room);
 		}

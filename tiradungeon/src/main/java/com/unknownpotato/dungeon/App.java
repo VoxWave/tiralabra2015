@@ -14,8 +14,8 @@ public class App
         PNGExporter exporter = new PNGExporter();
         exporter.export(level, "maze");
         
-        level = new Level(64,64);
-        RoomGenerator gen2 = new RoomGenerator(20,100);
+        level = new Level(500,500);
+        RoomGenerator gen2 = new RoomGenerator(2,50,100000);
         System.out.println(level.apply(gen2).toString());
         exporter.export(level, "rooms");
     }
