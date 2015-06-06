@@ -17,12 +17,15 @@ public class RoomGenerator implements Consumer<Level> {
 	
 	private int maxRoomSize;
 	private int minRoomSize;
+	private int roomDistance;
 	private int attempts;
 
-	public RoomGenerator(int minRoomSize, int maxRoomSize, int attempts) {
+	public RoomGenerator(int minRoomSize, int maxRoomSize, int roomDistance , int attempts) {
 		this.randX = new Random();
 		this.randY = new Random();
+		this.minRoomSize = minRoomSize;
 		this.maxRoomSize = maxRoomSize;
+		this.roomDistance = roomDistance;
 		this.attempts = attempts;
 	}
 
@@ -30,36 +33,44 @@ public class RoomGenerator implements Consumer<Level> {
 	public void accept(Level level) {
 		Set<Box> rooms = new HashSet<Box>();
 		for(int i = 0; i < attempts; i++) {
-			// huoneen alku piste joka voi olla missä tahanasa levelissä.
-			Vec2 min = new Vec2(randX.nextInt(level.getWidth()), randY.nextInt(level.getHeight()));
+			Box room = generateBox(level);
 			
-			//huoneen koko. koodin pitäisi toimia siten että huoneen koko on minimissään 2x2 ja maksimissaan maxRoomSize*maxRoomSize
-			Vec2 max = new Vec2(min).add(randX.nextInt(maxRoomSize-2)+2, randY.nextInt(maxRoomSize-2)+2);
-			
-			Box room = new Box(min, max);
-			
-			boolean fits = true;
-			for(Box box: rooms) {
-				if(room.overlaps(box)) {
-					fits = false;
-					break;
-				}
-			}
+			boolean fits = checkCollision(rooms, room);
 			if(fits) rooms.add(room);
 		}
 		
-		for(Box room: rooms) {
-			for(int y = room.getMin().getY(); y<room.getMax().getY(); y++) {
-				
-				for(int x = room.getMin().getX(); x<room.getMax().getX(); x++) {
-					
-					level.getTile(x, y).setType(TileType.FLOOR);
-					
-				}
-				
+		carve(level, rooms);
+	}
+
+	private boolean checkCollision(Set<Box> rooms, Box room) {
+		boolean fits = true;
+		for(Box box: rooms) {
+			if(room.overlaps(box)) {
+				fits = false;
+				break;
 			}
 		}
+		return fits;
+	}
+
+	private Box generateBox(Level level) {
+		Vec2 min = new Vec2(randX.nextInt(level.getWidth()), randY.nextInt(level.getHeight()));
 		
+		Vec2 max = new Vec2(min).add(randX.nextInt(maxRoomSize-minRoomSize)+minRoomSize, randY.nextInt(maxRoomSize-minRoomSize)+minRoomSize);
+		max.add(roomDistance, roomDistance);
+		
+		Box room = new Box(min, max);
+		return room;
+	}
+
+	private void carve(Level level, Set<Box> rooms) {
+		for(Box room: rooms) {
+			for(int y = room.getMin().getY(); y<=room.getMax().getY()-roomDistance; y++) {
+				for(int x = room.getMin().getX(); x<=room.getMax().getX()-roomDistance; x++) {
+					level.getTile(x, y).setType(TileType.FLOOR);
+				}	
+			}
+		}
 	}
 
 }
