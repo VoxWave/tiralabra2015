@@ -1,14 +1,13 @@
 package com.unknownpotato.dungeon.generator;
 
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
 import java.util.function.Consumer;
 
 import com.unknownpotato.dungeon.Level;
 import com.unknownpotato.dungeon.Tile.TileType;
 import com.unknownpotato.dungeon.util.Vec2;
 import com.unknownpotato.dungeon.util.Box;
+import com.unknownpotato.dungeon.util.HashSet;
 
 public class RoomGenerator implements Consumer<Level> {
 	
@@ -20,7 +19,7 @@ public class RoomGenerator implements Consumer<Level> {
 	private int roomDistance;
 	private int attempts;
 
-	public RoomGenerator(int minRoomSize, int maxRoomSize, int roomDistance , int attempts) {
+	public RoomGenerator(int minRoomSize, int maxRoomSize, int roomDistance, int attempts) {
 		this.randX = new Random();
 		this.randY = new Random();
 		this.minRoomSize = minRoomSize;
@@ -31,26 +30,24 @@ public class RoomGenerator implements Consumer<Level> {
 
 	@Override
 	public void accept(Level level) {
-		Set<Box> rooms = new HashSet<Box>();
+		HashSet<Box> rooms = new HashSet<>();
 		for(int i = 0; i < attempts; i++) {
 			Box room = generateBox(level);
 			
-			boolean fits = checkCollision(rooms, room);
+			boolean fits = !checkCollision(rooms, room);
 			if(fits) rooms.add(room);
 		}
 		
 		carve(level, rooms);
 	}
 
-	private boolean checkCollision(Set<Box> rooms, Box room) {
-		boolean fits = true;
+	private boolean checkCollision(HashSet<Box> rooms, Box room) {
 		for(Box box: rooms) {
 			if(room.overlaps(box)) {
-				fits = false;
-				break;
+				return true;
 			}
 		}
-		return fits;
+		return false;
 	}
 
 	private Box generateBox(Level level) {
@@ -63,7 +60,7 @@ public class RoomGenerator implements Consumer<Level> {
 		return room;
 	}
 
-	private void carve(Level level, Set<Box> rooms) {
+	private void carve(Level level, HashSet<Box> rooms) {
 		for(Box room: rooms) {
 			for(int y = room.getMin().getY(); y<=room.getMax().getY()-roomDistance; y++) {
 				for(int x = room.getMin().getX(); x<=room.getMax().getX()-roomDistance; x++) {

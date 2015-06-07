@@ -1,8 +1,39 @@
 package com.unknownpotato.dungeon.util;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class HashSet<T> implements Iterable<T> {
+
+	private class HashSetIterator implements Iterator<T> {
+		private int index;
+		
+		private HashSetIterator() {
+			getNextIndex();
+		}
+
+		@Override
+		public boolean hasNext() {
+			return index < data.length;
+		}
+
+		@Override
+		public T next() {
+			if(hasNext()){
+				T elem = data[index];
+				getNextIndex();
+				return elem;
+			}
+			throw new NoSuchElementException();
+		}
+		
+		private void getNextIndex(){
+			while(index < data.length && data[index] == null){
+				index++;
+			}
+		}
+
+	}
 
 	private T[] data;
 	private final double threshold;
@@ -16,35 +47,61 @@ public class HashSet<T> implements Iterable<T> {
 	
 	@Override
 	public Iterator<T> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new HashSetIterator();
 	}
 	
+	private int findIndex(T obj, T[] array) {
+		int index = mod(obj.hashCode(), array.length);
+		while(array[index] != null) {
+			if(array[index].equals(obj)) {
+				return index;
+			}
+			index = mod(index + 1, array.length);
+		}
+		return -index-1;
+	}
+	
+	public boolean contains(T obj) {
+		return findIndex(obj, data) >= 0;
+	}
+	
+	/**
+	 * Adds an object to the HashSet.
+	 * <p>
+	 * this method returns true if the object was added and false if the object was already in the set.
+	 * @param obj
+	 * @return
+	 */
 	public boolean add(T obj) {
 		if(threshold * data.length < curSize) {
 			grow();
 		}
-		int index = mod(obj.hashCode());
-		while(data[index] != null) {
-			if(data[index].equals(obj)){
-				return false;
-			}
-			index = mod(index + 1);
+		return add(obj, data);
+	}
+	
+	private boolean add(T obj, T[] array) {
+		int index = findIndex(obj, array);
+		if(index >= 0) {
+			return false;
 		}
-		data[index] = obj;
+		array[-index - 1] = obj;
 		return true;
 	}
 
 	private void grow() {
-		// TODO Auto-generated method stub
-		
+		@SuppressWarnings("unchecked")
+		T[] newData = (T[]) new Object[data.length*2];
+		for(T obj: this) {
+			add(obj, newData);
+		}
+		data = newData;
 	}
 	
-	private int mod(int n) {
+	private int mod(int n, int m) {
 		if(n < 0) {
-			return n % data.length+data.length;
+			return n % m + m;
 		}
-		return n % data.length;
+		return n % m;
 	}
 
 }
