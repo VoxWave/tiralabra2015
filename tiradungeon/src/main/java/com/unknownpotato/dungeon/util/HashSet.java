@@ -9,6 +9,7 @@ public class HashSet<T> implements Iterable<T> {
 		private int index;
 		
 		private HashSetIterator() {
+			
 			getNextIndex();
 		}
 
@@ -21,6 +22,7 @@ public class HashSet<T> implements Iterable<T> {
 		public T next() {
 			if(hasNext()){
 				T elem = data[index];
+				index++;
 				getNextIndex();
 				return elem;
 			}
@@ -76,7 +78,11 @@ public class HashSet<T> implements Iterable<T> {
 		if(threshold * data.length < curSize) {
 			grow();
 		}
-		return add(obj, data);
+		if(add(obj, data)) {
+			curSize++;
+			return true;
+		}
+		return false;
 	}
 	
 	private boolean add(T obj, T[] array) {
