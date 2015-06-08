@@ -48,8 +48,8 @@ public class MazeGeneratorTest {
 		Set<Vec2> visited = new HashSet<Vec2>(); // muista toteuttaa setti
 													// jossain vaiheessa
 
-		Queue<Pair<Direction, Vec2>> toBeVisited = new Queue<Pair<Direction, Vec2>>();
-		toBeVisited.enqueue(new Pair<Direction, Vec2>(Direction.NONE, new Vec2(
+		Queue<Pair<Direction, Vec2>> toBeVisited = new Queue<>();
+		toBeVisited.enqueue(new Pair<>(Direction.NONE, new Vec2(
 				0, 0)));
 
 		while (!toBeVisited.isEmpty()) {
@@ -76,9 +76,8 @@ public class MazeGeneratorTest {
 	private Queue<Pair<Direction, Vec2>> getNeighbours(Pair<Direction, Vec2> cur) {
 		Queue<Pair<Direction, Vec2>> neighbours = new Queue<>();
 
-		for (Direction d : Direction.values()) {
-			if (d == Direction.NONE
-					|| d.getVec().equals(cur.getRight().getOppositeVec())) {
+		for (Direction d : Direction.getOrthogonal()) {
+			if (d.getVec().equals(cur.getRight().getOppositeVec())) {
 				continue;
 			}
 			Vec2 vec = new Vec2(cur.getLeft());

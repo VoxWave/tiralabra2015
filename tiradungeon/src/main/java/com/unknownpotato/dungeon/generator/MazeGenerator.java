@@ -23,14 +23,8 @@ public class MazeGenerator implements Consumer<Level> {
 	 * the random generator that the generator uses.
 	 */
 	private Random rand;
-	/**
-	 * The x coordinate of the level that the generator starts carving from.
-	 */
-	private int x;
-	/**
-	 * The y coordinate of the level that the generator starts carving from.
-	 */
-	private int y;
+	
+	private Vec2 startPos;
 	
 	/**
 	 * Creates a maze generator that starts its carving from the specified coordinates.
@@ -39,8 +33,15 @@ public class MazeGenerator implements Consumer<Level> {
 	 */
 	public MazeGenerator(int x, int y) {
 		this.rand = new Random();
-		this.x = x;
-		this.y = y;
+		startPos = new Vec2(x,y);
+	}
+
+	public Vec2 getStartPos() {
+		return startPos;
+	}
+
+	public void setStartPos(Vec2 startPos) {
+		this.startPos = startPos;
 	}
 
 	/**
@@ -50,7 +51,7 @@ public class MazeGenerator implements Consumer<Level> {
 	@Override
 	public void accept(Level level) {
 		Stack<Vec2> stack = new Stack<>();
-		stack.push(new Vec2(x,y));
+		stack.push(startPos);
 		long seed = rand.nextLong();
 		int n = 0;
 		while(!stack.isEmpty()){
@@ -87,7 +88,7 @@ public class MazeGenerator implements Consumer<Level> {
 	protected Stack<Vec2> getNeighbours(Level level, Vec2 cur) {
 		Stack<Vec2> neighbours = new Stack<>();
 		int floors = 0;
-		for(Direction d: Direction.values()){
+		for(Direction d: Direction.getOrthogonal()){
 			Vec2 vec = new Vec2(d.getVec());
 			vec.add(cur);
 			if(level.getTile(vec).getType() == TileType.FLOOR) floors++;
