@@ -11,12 +11,34 @@ import com.unknownpotato.dungeon.util.HashSet;
 
 public class RoomGenerator implements Consumer<Level> {
 	
+	/**
+	 * the random generator used to generate X coordinates.
+	 */
 	private Random randX;
+	
+	/**
+	 * the random generator used to generate Y coordinates.
+ 	 */
 	private Random randY;
 	
+	/**
+	 * the maximum size of a room.
+	 */
 	private int maxRoomSize;
+	
+	/**
+	 * the minimum size of a room.
+	 */
 	private int minRoomSize;
+	
+	/**
+	 * the minimum distance between rooms.
+	 */
 	private int roomDistance;
+	
+	/**
+	 * the number of attempts to place rooms to a level.
+	 */
 	private int attempts;
 
 	public RoomGenerator(int minRoomSize, int maxRoomSize, int roomDistance, int attempts) {
@@ -28,6 +50,9 @@ public class RoomGenerator implements Consumer<Level> {
 		this.attempts = attempts;
 	}
 
+	/**
+	 * creates rooms to a level given as a parameter.
+	 */
 	@Override
 	public void accept(Level level) {
 		HashSet<Box> rooms = new HashSet<>();
@@ -41,6 +66,12 @@ public class RoomGenerator implements Consumer<Level> {
 		carve(level, rooms);
 	}
 
+	/**
+	 * checks if a room collides with any existing rooms.
+	 * @param rooms
+	 * @param room
+	 * @return
+	 */
 	private boolean checkCollision(HashSet<Box> rooms, Box room) {
 		for(Box box: rooms) {
 			if(room.overlaps(box)) {
@@ -50,6 +81,11 @@ public class RoomGenerator implements Consumer<Level> {
 		return false;
 	}
 
+	/**
+	 * generates random sized box which will represent a room.
+	 * @param level
+	 * @return
+	 */
 	private Box generateBox(Level level) {
 		Vec2 min = new Vec2(randX.nextInt(level.getWidth()), randY.nextInt(level.getHeight()));
 		
@@ -60,6 +96,11 @@ public class RoomGenerator implements Consumer<Level> {
 		return room;
 	}
 
+	/**
+	 * carves rooms to a level using boxes given as a parameter.
+	 * @param level
+	 * @param rooms
+	 */
 	private void carve(Level level, HashSet<Box> rooms) {
 		for(Box room: rooms) {
 			for(int y = room.getMin().getY(); y<=room.getMax().getY()-roomDistance; y++) {

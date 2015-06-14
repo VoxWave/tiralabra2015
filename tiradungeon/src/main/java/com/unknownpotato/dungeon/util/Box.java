@@ -8,7 +8,13 @@ package com.unknownpotato.dungeon.util;
  *
  */
 public class Box {
+	/**
+	 * a corner of the box at the smallest coordinates.
+	 */
 	private final Vec2 min;
+	/**
+	 * corner of the box at the biggest coordinates.
+	 */
 	private final Vec2 max;
 
 	/**

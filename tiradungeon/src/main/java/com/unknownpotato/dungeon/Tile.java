@@ -72,10 +72,18 @@ public class Tile {
 		this.type = type;
 	}
 	
+	/**
+	 * returns the tiletype of the tile.
+	 * @return
+	 */
 	public TileType getType() {
 		return this.type;
 	}
 	
+	/**
+	 * sets the TileType of the tile to the tiletype given as a parameter
+	 * @param type
+	 */
 	public void setType(TileType type) {
 		this.type = type;
 	}
@@ -85,6 +93,12 @@ public class Tile {
 		return ""+type.getC();
 	}
 
+	/**
+	 * returns the color of the tile
+	 * <p>
+	 * the color of the tile is determined by its tiletype
+	 * @return
+	 */
 	public Color getColor() {
 		return type.getColor();
 	}

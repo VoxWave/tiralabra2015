@@ -14,9 +14,17 @@ import com.unknownpotato.dungeon.util.Vec2;
  */
 
 public class Level {
-	
+	/**
+	 * an array of tiles representing Tiles
+	 */
 	private Tile[][] tiles;
+	/**
+	 * the width of the level.
+	 */
 	private int width;
+	/**
+	 * the height of the level.
+	 */
 	private int height;
 	
 	/**
@@ -95,6 +103,9 @@ public class Level {
 		return getTile(vec.getX(), vec.getY());
 	}
 	
+	/**
+	 * returns the string representation of the level
+	 */
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

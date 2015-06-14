@@ -5,6 +5,11 @@ import java.util.NoSuchElementException;
 
 public class HashSet<T> implements Iterable<T> {
 
+	/**
+	 * the iterator of the hashset.
+	 * @author voxwave
+	 *
+	 */
 	private class HashSetIterator implements Iterator<T> {
 		private int index;
 		
@@ -63,6 +68,11 @@ public class HashSet<T> implements Iterable<T> {
 		return -index-1;
 	}
 	
+	/**
+	 * test if the HashSet contains element equal to obj.
+	 * @param obj
+	 * @return
+	 */
 	public boolean contains(T obj) {
 		return findIndex(obj, data) >= 0;
 	}
@@ -94,6 +104,9 @@ public class HashSet<T> implements Iterable<T> {
 		return true;
 	}
 
+	/**
+	 * increases the size of the internal array of the HashSet
+	 */
 	private void grow() {
 		@SuppressWarnings("unchecked")
 		T[] newData = (T[]) new Object[data.length*2];
@@ -103,6 +116,12 @@ public class HashSet<T> implements Iterable<T> {
 		data = newData;
 	}
 	
+	/**
+	 * returns the modulo of n over m
+	 * @param n
+	 * @param m
+	 * @return
+	 */
 	private int mod(int n, int m) {
 		if(n < 0) {
 			return n % m + m;

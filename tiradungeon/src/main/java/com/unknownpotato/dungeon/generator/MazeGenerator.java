@@ -24,6 +24,9 @@ public class MazeGenerator implements Consumer<Level> {
 	 */
 	private Random rand;
 	
+	/**
+	 * the coordinates of a level to begin carving the maze from.
+	 */
 	private Vec2 startPos;
 	
 	/**
@@ -36,10 +39,18 @@ public class MazeGenerator implements Consumer<Level> {
 		startPos = new Vec2(x,y);
 	}
 
+	/**
+	 * returns the position from where the maze carving is started.
+	 * @return
+	 */
 	public Vec2 getStartPos() {
 		return startPos;
 	}
 
+	/**
+	 * changes the starting position.
+	 * @param startPos
+	 */
 	public void setStartPos(Vec2 startPos) {
 		this.startPos = startPos;
 	}
