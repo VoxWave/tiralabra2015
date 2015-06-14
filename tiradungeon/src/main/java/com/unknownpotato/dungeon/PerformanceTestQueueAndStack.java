@@ -23,13 +23,13 @@ public class PerformanceTestQueueAndStack {
 		Random rand = new Random();
 		Queue<Integer> queue = new Queue<>();
 		long seed = rand.nextLong();
-		int iterations = 2000000;
+		int iterations = 2000000; //muutan tätä riviä ja otan ohjelman tulostaman ajan talteen ja piirrän niistä graaffin.
 		
 		jvmWarmup();
 		
 		long time = 0;
 		for(int i = 0; i < 100; i++){
-			time += dequePushBenchmark(iterations, seed);
+			time += dequePopBenchmark(iterations, seed);
 		}
 		System.out.println(time/100.0);
 //		System.out.println(dequePushBenchmark(iterations, seed));
@@ -60,6 +60,40 @@ public class PerformanceTestQueueAndStack {
 		for(int i = 0; i < iterations; i++) {
 			int elem = rand.nextInt();
 			stack.push(elem);
+		}
+		long stopTime = System.currentTimeMillis();
+		long stackTime = stopTime-startTime;
+		return stackTime;
+	}
+	
+	private static long stackPopBenchmark(int iterations, long seed) {
+		Random rand = new Random(seed);
+		Stack<Integer> stack = new Stack<>();
+		
+		for(int i = 0; i < iterations; i++) {
+			int elem = rand.nextInt();
+			stack.push(elem);
+		}
+		long startTime = System.currentTimeMillis();
+		for(int i = 0; i < iterations; i++) {
+			stack.pop();
+		}
+		long stopTime = System.currentTimeMillis();
+		long stackTime = stopTime-startTime;
+		return stackTime;
+	}
+	
+	private static long dequePopBenchmark(int iterations, long seed) {
+		Random rand = new Random(seed);
+		Deque<Integer> deque = new ArrayDeque<>();
+		
+		for(int i = 0; i < iterations; i++) {
+			int elem = rand.nextInt();
+			deque.push(elem);
+		}
+		long startTime = System.currentTimeMillis();
+		for(int i = 0; i < iterations; i++) {
+			deque.pop();
 		}
 		long stopTime = System.currentTimeMillis();
 		long stackTime = stopTime-startTime;
