@@ -3,7 +3,9 @@ package com.unknownpotato.dungeon.generator;
 import java.util.function.Consumer;
 
 import com.unknownpotato.dungeon.Level;
+import com.unknownpotato.dungeon.Tile;
 import com.unknownpotato.dungeon.Tile.TileType;
+import com.unknownpotato.dungeon.util.HashSet;
 import com.unknownpotato.dungeon.util.Vec2;
 import com.unknownpotato.dungeon.util.enums.Direction;
 
@@ -31,15 +33,46 @@ public class DungeonGenerator implements Consumer<Level> {
 		level.apply(roomGen);
 		applyMaze(level);
 		createScaryDoors(level);
+		while(blockDeadEnds(level));
 	}
+	
 	private void createScaryDoors(Level level) {
 		
 	}
 	
-	private void blockDeadEnds() {
-		
+	/**
+	 * Goes through the level, finds all the dead ends and then fills them with wall.
+	 * @param level
+	 */
+	private boolean blockDeadEnds(Level level) {
+		HashSet<Vec2> deadends = new HashSet<>();
+		for(int y = 0; y<level.getHeight(); y++) {
+			for(int x = 0; x<level.getWidth(); x++) {
+				Vec2 curPos = new Vec2(x,y);
+				if(level.getTile(curPos).getType().equals(TileType.FLOOR) && isDeadend(curPos, level)){
+					deadends.add(curPos);
+				}
+			}
+		}
+		boolean deadEndWasBlocked = false;
+		for(Vec2 pos :deadends) {
+			level.getTile(pos).setType(TileType.WALL);
+			deadEndWasBlocked = true;
+		}
+		return deadEndWasBlocked;
 	}
 	
+	private boolean isDeadend(Vec2 curPos, Level level) {
+		int walls = 0;
+		for(Direction dir: Direction.getOrthogonal()) {
+			Vec2 vec = new Vec2(curPos);
+			vec.add(dir.getVec());
+			
+			if(level.getTile(vec).getType().equals(TileType.WALL)) walls++;
+		}
+		return walls >= 3;
+	}
+
 	/**
 	 * creates mazes to the level with a mazegenerator.
 	 * @param level
