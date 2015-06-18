@@ -1,10 +1,12 @@
 package com.unknownpotato.dungeon.generator;
 
+import java.util.Random;
 import java.util.function.Consumer;
 
 import com.unknownpotato.dungeon.Level;
 import com.unknownpotato.dungeon.Tile;
 import com.unknownpotato.dungeon.Tile.TileType;
+import com.unknownpotato.dungeon.util.Box;
 import com.unknownpotato.dungeon.util.HashSet;
 import com.unknownpotato.dungeon.util.Vec2;
 import com.unknownpotato.dungeon.util.enums.Direction;
@@ -37,7 +39,11 @@ public class DungeonGenerator implements Consumer<Level> {
 	}
 	
 	private void createScaryDoors(Level level) {
-		
+		Random rand = new Random();
+		for(Box room: roomGen.getRooms()) {
+			int wall = rand.nextInt(4);
+			if()
+		}
 	}
 	
 	/**

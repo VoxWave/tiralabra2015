@@ -40,6 +40,13 @@ public class RoomGenerator implements Consumer<Level> {
 	 * the number of attempts to place rooms to a level.
 	 */
 	private int attempts;
+	
+	/**
+	 * the rooms generated when accept is run.
+	 * <p>
+	 * is empty if roomgenerator has not been used
+	 */
+	private HashSet<Box> rooms;
 
 	public RoomGenerator(int minRoomSize, int maxRoomSize, int roomDistance, int attempts) {
 		this.randX = new Random();
@@ -48,6 +55,7 @@ public class RoomGenerator implements Consumer<Level> {
 		this.maxRoomSize = maxRoomSize;
 		this.roomDistance = roomDistance;
 		this.attempts = attempts;
+		this.rooms = new HashSet<>();
 	}
 
 	/**
@@ -55,7 +63,7 @@ public class RoomGenerator implements Consumer<Level> {
 	 */
 	@Override
 	public void accept(Level level) {
-		HashSet<Box> rooms = new HashSet<>();
+		this.rooms = new HashSet<>();
 		for(int i = 0; i < attempts; i++) {
 			Box room = generateBox(level);
 			
@@ -109,6 +117,10 @@ public class RoomGenerator implements Consumer<Level> {
 				}	
 			}
 		}
+	}
+	
+	public HashSet<Box> getRooms() {
+		return this.rooms;
 	}
 
 }
