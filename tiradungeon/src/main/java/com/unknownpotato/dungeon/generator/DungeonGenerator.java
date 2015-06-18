@@ -41,8 +41,13 @@ public class DungeonGenerator implements Consumer<Level> {
 	private void createScaryDoors(Level level) {
 		Random rand = new Random();
 		for(Box room: roomGen.getRooms()) {
-			int wall = rand.nextInt(4);
-			if()
+			int halfX = room.getMin().getX() + ((room.getMax().getX() - room.getMin().getX())/2);
+			int halfY = room.getMin().getY() + ((room.getMax().getY() - room.getMin().getY())/2);
+			
+			level.getTile(halfX, room.getMax().getY()+1).setType(TileType.FLOOR);
+			level.getTile(halfX, room.getMin().getY()-1).setType(TileType.FLOOR);
+			level.getTile(room.getMax().getX()+1, halfY).setType(TileType.FLOOR);
+			level.getTile(room.getMin().getX()-1, halfY).setType(TileType.FLOOR);
 		}
 	}
 	
@@ -74,7 +79,7 @@ public class DungeonGenerator implements Consumer<Level> {
 			Vec2 vec = new Vec2(curPos);
 			vec.add(dir.getVec());
 			
-			if(level.getTile(vec).getType().equals(TileType.WALL)) walls++;
+			if(level.getTile(vec).getType().equals(TileType.WALL) || level.getTile(vec).getType().equals(TileType.VOID)) walls++;
 		}
 		return walls >= 3;
 	}
