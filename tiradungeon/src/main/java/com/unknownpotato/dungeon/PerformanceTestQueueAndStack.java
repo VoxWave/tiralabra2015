@@ -19,9 +19,7 @@ public class PerformanceTestQueueAndStack {
 	}
 	
 	public static void main(String[] args) {
-		StringBuilder builder = new StringBuilder();
 		Random rand = new Random();
-		Queue<Integer> queue = new Queue<>();
 		long seed = rand.nextLong();
 		int iterations = 2000000; //muutan tätä riviä ja otan ohjelman tulostaman ajan talteen ja piirrän niistä graaffin.
 		

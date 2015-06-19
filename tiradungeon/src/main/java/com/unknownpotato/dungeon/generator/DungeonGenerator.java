@@ -39,7 +39,6 @@ public class DungeonGenerator implements Consumer<Level> {
 	}
 	
 	private void createScaryDoors(Level level) {
-		Random rand = new Random();
 		for(Box room: roomGen.getRooms()) {
 			int halfX = room.getMin().getX() + ((room.getMax().getX() - room.getMin().getX())/2);
 			int halfY = room.getMin().getY() + ((room.getMax().getY() - room.getMin().getY())/2);

@@ -58,12 +58,12 @@ public class HashSet<T> implements Iterable<T> {
 	}
 	
 	private int findIndex(T obj, T[] array) {
-		int index = mod(obj.hashCode(), array.length);
+		int index = mod(obj.hashCode(), array.length-1);
 		while(array[index] != null) {
 			if(array[index].equals(obj)) {
 				return index;
 			}
-			index = mod(index + 1, array.length);
+			index = mod(index + 1, array.length-1);
 		}
 		return -index-1;
 	}
