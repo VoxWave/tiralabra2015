@@ -40,12 +40,12 @@ public class DungeonGenerator implements Consumer<Level> {
 	
 	private void createScaryDoors(Level level) {
 		for(Box room: roomGen.getRooms()) {
-			int halfX = room.getMin().getX() + ((room.getMax().getX() - room.getMin().getX())/2);
-			int halfY = room.getMin().getY() + ((room.getMax().getY() - room.getMin().getY())/2);
+			int halfX = (room.getMax().getX() + room.getMin().getX())/2;
+			int halfY = (room.getMax().getY() + room.getMin().getY())/2;
 			
-			level.getTile(halfX, room.getMax().getY()+1).setType(TileType.FLOOR);
+			level.getTile(halfX, room.getMax().getY()-2).setType(TileType.FLOOR);
 			level.getTile(halfX, room.getMin().getY()-1).setType(TileType.FLOOR);
-			level.getTile(room.getMax().getX()+1, halfY).setType(TileType.FLOOR);
+			level.getTile(room.getMax().getX()-2, halfY).setType(TileType.FLOOR);
 			level.getTile(room.getMin().getX()-1, halfY).setType(TileType.FLOOR);
 		}
 	}
